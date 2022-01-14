@@ -46,7 +46,11 @@ export class AppComponent implements OnInit {
     event.preventDefault();
     if (event.key === ' ' && !this.isPlaying) {
       this.isPlaying = true;
+      this.play();
     }
+  }
+
+  play() {
     if (this.isPlaying) {
       this.chartService.getChart().subscribe(
         (data: Chart) => {
