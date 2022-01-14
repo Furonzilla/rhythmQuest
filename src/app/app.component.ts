@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   notes: Note[];
   private chartService: ChartService;
   currentTime: number = 0;
+  combo: number = 0;
 
   @ViewChild('track')
   myTrack: any;
@@ -65,6 +66,7 @@ export class AppComponent implements OnInit {
           this.music.pause();
           this.isPlaying = false;
           this.currentTime = 0;
+          this.combo = 0;
         }
         this.noteGeneration(this.notes, this.currentTime);
       }, 10);
@@ -86,10 +88,12 @@ export class AppComponent implements OnInit {
       if (imputDifference <= 62) {
         note.remove();
         this.displayJugdement('perfect');
+        this.combo += 1;
       }
       if (imputDifference > 62 && imputDifference <= 104) {
         note.remove();
         this.displayJugdement('great');
+        this.combo += 1;
       }
       if (imputDifference > 104 && imputDifference <= 145) {
         note.remove();
@@ -98,6 +102,7 @@ export class AppComponent implements OnInit {
       if (imputDifference > 145 && imputDifference <= 187) {
         note.remove();
         this.displayJugdement('bad');
+        this.combo = 0;
       }
     }
   }
@@ -165,6 +170,7 @@ export class AppComponent implements OnInit {
       if (note.parentNode) {
         note.remove();
         this.displayJugdement('miss');
+        this.combo = 0;
       }
     }, 1200);    
   }

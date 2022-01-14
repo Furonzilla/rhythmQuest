@@ -2,7 +2,9 @@
   <div class="callToActionText">Press 'SPACE' to play</div>
 </div>
 <div class="game-zone" [ngStyle]="{ display: isPlaying ? 'flex' : 'none' }">
-  <div class="track" #track></div>
+  <div class="track" #track>
+    <div class="combo" *ngIf="combo > 4">{{combo}}</div>
+  </div>
   <div class="receptor"></div>
   <div class="keys">
     <div class="key-c"><div class="letter-down">C</div></div>
