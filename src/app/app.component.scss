@@ -1,0 +1,144 @@
+.callToAction {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.callToActionText {
+  font-size: 3cm;
+  color: red;
+  animation-duration: 1s;
+  animation-name: pulse;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes pulse {
+  from {
+    font-size: 3cm;
+  }
+  50% {
+    font-size: 3.5cm;
+  }
+  to {
+    font-size: 3cm;
+  }
+}
+
+.game-zone {
+  // display: none;
+  flex-direction: column;
+  height: 100vh;
+  width: 50vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// inside game-zone
+.track {
+  position: relative;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  flex: 1 1 0;
+  overflow: hidden;
+}
+
+// inside game-zone
+.receptor {
+  width: 100%;
+  height: 2vh;
+  background-color: red;
+  z-index: 9;
+}
+
+// inside game-zone
+.keys {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 20vh;
+}
+
+.letter-up {
+  height: 10vh;
+}
+
+.key-c,
+.key-v,
+.key-b {
+
+  background-color: white;
+  color: black;
+}
+
+.key-f,
+.key-g {
+  background-color: black;
+  color: white;
+}
+
+.key-c,
+.key-f,
+.key-v,
+.key-g,
+.key-b {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: xx-large;
+  font-weight: 800;
+  opacity: 100%;
+  width: 20%;
+}
+
+// inside track
+.note {
+  position: absolute;
+  height: 2vh;
+  width: 10vh;
+  animation-duration: 1.2s;
+  animation-name: none;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+@keyframes moveDown {
+  from {
+    transform: translateY(0vh);
+  }
+  to {
+    transform: translateY(93.6vh);
+  }
+}
+
+.note-c,
+.note-v,
+.note-b {
+  background-color: white;
+}
+
+.note-f,
+.note-g {
+  background-color: blue;
+}
+
+.note-c {
+  left: 0vh;
+}
+
+.note-f {
+  left: 10vh;
+}
+
+.note-v {
+  left: 20vh;
+}
+
+.note-g {
+  left: 30vh;
+}
+
+.note-b {
+  left: 40vh;
+}
