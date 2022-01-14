@@ -176,7 +176,7 @@ export class AppComponent implements OnInit {
         this.displayJugdement('miss');
         this.combo = 0;
       }
-    }, 1200);    
+    }, 1188);    
   }
 
   displayJugdement(judgementName: string) : void{
