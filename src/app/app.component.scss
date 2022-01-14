@@ -64,10 +64,57 @@
   height: 10vh;
 }
 
+.perfect {
+  color: gold;
+}
+
+.great {
+  color: green;
+}
+
+.good {
+  color: blue;
+}
+
+.bad {
+  color: purple;
+}
+
+.miss {
+  color: red;
+}
+
+.judgement {
+  position: absolute;
+  z-index: 10;
+  animation-duration: 0.5s;
+  animation-name: shrink;
+  animation-iteration-count: 1;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -80%);
+}
+
+@keyframes shrink {
+  from {
+    font-size: 2cm;
+  }
+  to {
+    font-size: 1.5cm;
+  }
+}
+
+.combo {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -40%);
+}
+
 .key-c,
 .key-v,
 .key-b {
-
   background-color: white;
   color: black;
 }

@@ -19,10 +19,12 @@ import { ChartService } from './shared/services/chart.service';
 export class AppComponent implements OnInit {
   title = 'rhythmQuest';
   isPlaying: boolean = false;
+  showScore: boolean = false;
   music: any = new Audio('/assets/song/song.mp3');
   chart: Chart | undefined;
   notes: Note[];
   private chartService: ChartService;
+  currentTime: number = 0;
 
   @ViewChild('track')
   myTrack: any;
@@ -35,10 +37,9 @@ export class AppComponent implements OnInit {
     this.notes = [];
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-  }
-
+  // press space to play !
   @HostListener('document:keydown.space', ['$event'])
   startGame(event: KeyboardEvent) {
     event.preventDefault();
@@ -57,25 +58,56 @@ export class AppComponent implements OnInit {
       );
       this.music.play();
       const startTime = Date.now();
-      let currentTime: number = 0;
       let timer = setInterval(() => {
-        currentTime = Math.round(Date.now() - startTime);
-        if (currentTime > 98570) {
+        this.currentTime = Math.round(Date.now() - startTime);
+        if (this.currentTime > 98570) {
           clearInterval(timer);
           this.music.pause();
           this.isPlaying = false;
+          this.currentTime = 0;
         }
-        this.noteGeneration(this.notes, currentTime);
+        this.noteGeneration(this.notes, this.currentTime);
       }, 10);
-      this.onKeydownHandler(event);
     }
   }
 
-  noteGeneration(noteArray : Note[], timer: number) {
+  //jugement de notes
+  judgement(classNameOfNote: string, currentTime: number) {
+    let notes = document.getElementsByClassName(classNameOfNote);
+    let note = null;
+    if (notes.length > 0) {
+      if (notes.length === 1) {
+        note = notes[0];
+      } else {
+        note = notes[0];
+      }
+      let noteTime = note.id;
+      let imputDifference = Math.abs(currentTime - parseInt(noteTime));
+      if (imputDifference <= 62) {
+        note.remove();
+        this.displayJugdement('perfect');
+      }
+      if (imputDifference > 62 && imputDifference <= 104) {
+        note.remove();
+        this.displayJugdement('great');
+      }
+      if (imputDifference > 104 && imputDifference <= 145) {
+        note.remove();
+        this.displayJugdement('good');
+      }
+      if (imputDifference > 145 && imputDifference <= 187) {
+        note.remove();
+        this.displayJugdement('bad');
+      }
+    }
+  }
+
+  // génére une note
+  noteGeneration(noteArray: Note[], timer: number) {
     noteArray.forEach((note, index, object) => {
       if (note.time - 1000 <= timer) {
-        this.createNote(note.position);
-        object.splice(index, 1)
+        this.createNote(note.position, note.time);
+        object.splice(index, 1);
       }
     });
   }
@@ -122,15 +154,36 @@ export class AppComponent implements OnInit {
   }
 
   // notePosition = note-c note-f note-v note-g note-b
-  createNote(notePosition: string) {
-    const note = document.createElement('div');
+  createNote(notePosition: string, noteTime: number) {
+    let note = document.createElement('div');
     this.renderer.addClass(note, 'note');
     this.renderer.addClass(note, notePosition);
+    note.id = noteTime.toString();
     this.renderer.appendChild(this.myTrack.nativeElement, note);
     this.noteScroll(note);
+    setTimeout(() => {
+      if (note.parentNode) {
+        note.remove();
+        this.displayJugdement('miss');
+      }
+    }, 1200);    
+  }
+
+  displayJugdement(judgementName: string) : void{
+    let previousJudgement = document.getElementsByClassName('judgement');
+    if (previousJudgement.length) {
+      let judgementToDelete = previousJudgement[0];
+      judgementToDelete.remove();
+    }
+    let judgementNameDiv = document.createElement('h1');
+    let judgementText = document.createTextNode(judgementName);
+    judgementNameDiv.appendChild(judgementText);
+    this.renderer.addClass(judgementNameDiv, judgementName);
+    this.renderer.addClass(judgementNameDiv, 'judgement');
+    this.renderer.appendChild(this.myTrack.nativeElement, judgementNameDiv);
     setTimeout(function () {
-      note.remove();
-    }, 1200);
+      judgementNameDiv.remove();
+    }, 500);
   }
 
   // fonction d'animation des notes
@@ -144,22 +197,23 @@ export class AppComponent implements OnInit {
   @HostListener('document:keydown.g', ['$event'])
   @HostListener('document:keydown.b', ['$event'])
   onKeydownHandler(event: KeyboardEvent) {
+    let currentTime = this.currentTime;
     event.preventDefault();
     switch (event.key) {
       case 'c':
-        // this.createNote('note-c');
+        this.judgement('note-c', currentTime);
         break;
       case 'f':
-        // this.createNote('note-f');
+        this.judgement('note-f', currentTime);
         break;
       case 'v':
-        // this.createNote('note-v');
+        this.judgement('note-v', currentTime);
         break;
       case 'g':
-        // this.createNote('note-g');
+        this.judgement('note-g', currentTime);
         break;
       case 'b':
-        // this.createNote('note-b');
+        this.judgement('note-b', currentTime);
         break;
     }
   }
