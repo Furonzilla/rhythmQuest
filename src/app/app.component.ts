@@ -94,21 +94,21 @@ export class AppComponent implements OnInit {
       let imputDifference = Math.abs(currentTime - parseInt(noteTime));
       if (imputDifference <= 62) {
         note.remove();
-        this.displayJugdement('perfect');
+        this.displayJugdement('Perfect!');
         this.combo += 1;
       }
       if (imputDifference > 62 && imputDifference <= 104) {
         note.remove();
-        this.displayJugdement('great');
+        this.displayJugdement('Great');
         this.combo += 1;
       }
       if (imputDifference > 104 && imputDifference <= 145) {
         note.remove();
-        this.displayJugdement('good');
+        this.displayJugdement('Good');
       }
       if (imputDifference > 145 && imputDifference <= 187) {
         note.remove();
-        this.displayJugdement('bad');
+        this.displayJugdement('Bad');
         this.combo = 0;
       }
     }
@@ -176,7 +176,7 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       if (note.parentNode) {
         note.remove();
-        this.displayJugdement('miss');
+        this.displayJugdement('Miss');
         this.combo = 0;
       }
     }, 1188);    
