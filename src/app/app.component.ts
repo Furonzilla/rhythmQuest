@@ -94,7 +94,7 @@ export class AppComponent implements OnInit {
       let imputDifference = Math.abs(currentTime - parseInt(noteTime));
       if (imputDifference <= 62) {
         note.remove();
-        this.displayJugdement('Perfect!');
+        this.displayJugdement('Perfect');
         this.combo += 1;
       }
       if (imputDifference > 62 && imputDifference <= 104) {
@@ -183,6 +183,7 @@ export class AppComponent implements OnInit {
   }
 
   displayJugdement(judgementName: string) : void{
+    let lowerCaseJudgementName = judgementName.toLowerCase();
     let previousJudgement = document.getElementsByClassName('judgement');
     if (previousJudgement.length) {
       let judgementToDelete = previousJudgement[0];
@@ -191,7 +192,7 @@ export class AppComponent implements OnInit {
     let judgementNameDiv = document.createElement('h1');
     let judgementText = document.createTextNode(judgementName);
     judgementNameDiv.appendChild(judgementText);
-    this.renderer.addClass(judgementNameDiv, judgementName);
+    this.renderer.addClass(judgementNameDiv, lowerCaseJudgementName);
     this.renderer.addClass(judgementNameDiv, 'judgement');
     this.renderer.appendChild(this.myTrack.nativeElement, judgementNameDiv);
     setTimeout(function () {
