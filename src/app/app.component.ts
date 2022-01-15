@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   isPlaying: boolean = false;
   showScore: boolean = false;
   music: any = new Audio('/assets/song/song.mp3');
-  chart: Chart | undefined;
+  chart: Chart;
   notes: Note[];
   private chartService: ChartService;
   currentTime: number = 0;
@@ -34,6 +34,7 @@ export class AppComponent implements OnInit {
     private renderer: Renderer2,
     private chartServiceParam: ChartService
   ) {
+    this.chart = new Chart(0, 0, new Array);
     this.chartService = chartServiceParam;
     this.notes = [];
   }
@@ -41,8 +42,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.chartService.getChart().subscribe(
       (data: Chart) => {
-        this.chart = data;
-        this.notes = this.readChart(this.chart);
+        this.chart = data;        
       },
       (error: Error) => {
         console.log(error);
@@ -62,6 +62,7 @@ export class AppComponent implements OnInit {
 
   play() {
     if (this.isPlaying) {
+      this.notes = this.readChart(this.chart);
       let songDuration = this.music.duration;
       this.music.play();
       let timer = setInterval(() => {
