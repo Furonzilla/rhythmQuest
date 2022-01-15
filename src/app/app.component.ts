@@ -38,17 +38,7 @@ export class AppComponent implements OnInit {
     this.notes = [];
   }
 
-  ngOnInit(): void {
-    this.chartService.getChart().subscribe(
-      (data: Chart) => {
-        this.chart = data;
-        this.notes = this.readChart(this.chart);
-      },
-      (error: Error) => {
-        console.log(error);
-      }
-    );
-  }
+  ngOnInit(): void {}
 
   // press space to play !
   @HostListener('document:keydown.space', ['$event'])
@@ -62,14 +52,22 @@ export class AppComponent implements OnInit {
 
   play() {
     if (this.isPlaying) {
-      let songDuration = this.music.duration;
+      this.chartService.getChart().subscribe(
+        (data: Chart) => {
+          this.chart = data;
+          this.notes = this.readChart(this.chart);
+        },
+        (error: Error) => {
+          console.log(error);
+        }
+      );
       this.music.play();
+      const startTime = Date.now();
       let timer = setInterval(() => {
-        this.currentTime = this.music.currentTime*1000;
-        if (this.currentTime >= songDuration*1000) {
+        this.currentTime = Math.round(Date.now() - startTime);
+        if (this.currentTime > 98570) {
           clearInterval(timer);
           this.music.pause();
-          this.music.load();
           this.isPlaying = false;
           this.currentTime = 0;
           this.combo = 0;
