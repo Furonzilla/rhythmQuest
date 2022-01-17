@@ -114,24 +114,24 @@
   transform: translate(-50%, 0);
 }
 
-.key-c,
-.key-v,
-.key-b {
+.key-s,
+.key-f,
+.key-h {
   background-color: white;
   color: black;
 }
 
-.key-f,
+.key-d,
 .key-g {
   background-color: black;
   color: white;
 }
 
-.key-c,
+.key-s,
+.key-d,
 .key-f,
-.key-v,
 .key-g,
-.key-b {
+.key-h {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -161,26 +161,26 @@
   }
 }
 
-.note-c,
-.note-v,
-.note-b {
+.note-s,
+.note-f,
+.note-h {
   background-color: white;
 }
 
-.note-f,
+.note-d,
 .note-g {
   background-color: blue;
 }
 
-.note-c {
+.note-s {
   left: 0vh;
 }
 
-.note-f {
+.note-d {
   left: 10vh;
 }
 
-.note-v {
+.note-f {
   left: 20vh;
 }
 
@@ -188,6 +188,6 @@
   left: 30vh;
 }
 
-.note-b {
+.note-h {
   left: 40vh;
 }

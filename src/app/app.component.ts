@@ -85,11 +85,7 @@ export class AppComponent implements OnInit {
     let notes = document.getElementsByClassName(classNameOfNote);
     let note = null;
     if (notes.length > 0) {
-      if (notes.length === 1) {
-        note = notes[0];
-      } else {
-        note = notes[0];
-      }
+      note = notes[0];
       let noteTime = note.id;
       let imputDifference = Math.abs(currentTime - parseInt(noteTime));
       if (imputDifference <= 62) {
@@ -136,17 +132,17 @@ export class AppComponent implements OnInit {
         for (let j = 0; j < noteString.length; j++) {
           if (noteString[j] === '1') {
             if (j === 0) {
-              noteArray.push(new Note(delay + addTime * i, 'note-c'));
+              noteArray.push(new Note(delay + addTime * i, 'note-s'));
             }
           }
           if (noteString[j] === '1') {
             if (j === 1) {
-              noteArray.push(new Note(delay + addTime * i, 'note-f'));
+              noteArray.push(new Note(delay + addTime * i, 'note-d'));
             }
           }
           if (noteString[j] === '1') {
             if (j === 2) {
-              noteArray.push(new Note(delay + addTime * i, 'note-v'));
+              noteArray.push(new Note(delay + addTime * i, 'note-f'));
             }
           }
           if (noteString[j] === '1') {
@@ -156,7 +152,7 @@ export class AppComponent implements OnInit {
           }
           if (noteString[j] === '1') {
             if (j === 4) {
-              noteArray.push(new Note(delay + addTime * i, 'note-b'));
+              noteArray.push(new Note(delay + addTime * i, 'note-h'));
             }
           }
         }
@@ -205,29 +201,29 @@ export class AppComponent implements OnInit {
     divParam.style.animationName = 'moveDown';
   }
 
-  @HostListener('document:keydown.c', ['$event'])
+  @HostListener('document:keydown.s', ['$event'])
+  @HostListener('document:keydown.d', ['$event'])
   @HostListener('document:keydown.f', ['$event'])
-  @HostListener('document:keydown.v', ['$event'])
   @HostListener('document:keydown.g', ['$event'])
-  @HostListener('document:keydown.b', ['$event'])
+  @HostListener('document:keydown.h', ['$event'])
   onKeydownHandler(event: KeyboardEvent) {
     let currentTime = this.currentTime;
     event.preventDefault();
     switch (event.key) {
-      case 'c':
-        this.judgement('note-c', currentTime);
+      case 's':
+        this.judgement('note-s', currentTime);
+        break;
+      case 'd':
+        this.judgement('note-d', currentTime);
         break;
       case 'f':
         this.judgement('note-f', currentTime);
         break;
-      case 'v':
-        this.judgement('note-v', currentTime);
-        break;
       case 'g':
         this.judgement('note-g', currentTime);
         break;
-      case 'b':
-        this.judgement('note-b', currentTime);
+      case 'h':
+        this.judgement('note-h', currentTime);
         break;
     }
   }
